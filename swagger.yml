@@ -37,7 +37,6 @@ paths:
           type: integer
           required: false
           default: 0
-        - $ref: "#/parameters/userId"
       responses:
         200:
           description: success

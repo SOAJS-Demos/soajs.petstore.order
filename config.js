@@ -52,7 +52,31 @@ module.exports = {
 					"l": "Manage all Orders",
 					"group": "orders"
 				},
-				"mw": __dirname + "/lib/mw/admin_orders_get.js"
+				"mw": __dirname + "/lib/mw/admin_orders_get.js",
+				"imfv": {
+					"custom": {
+						"start": {
+							"required": false,
+							"source": [
+								"query.start"
+							],
+							"validation": {
+								"type": "integer",
+								"default": 0
+							}
+						},
+						"limit": {
+							"required": false,
+							"source": [
+								"query.limit"
+							],
+							"validation": {
+								"type": "integer",
+								"default": 100
+							}
+						}
+					}
+				}
 			},
 			"/orders": {
 				"_apiInfo": {
