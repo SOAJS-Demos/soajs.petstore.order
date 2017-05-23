@@ -21,7 +21,7 @@ module.exports = {
 		}
 	],
 	"models": {
-		"path": "/opt/soajs/node_modules/soajs.petstore.services/order/lib/models/",
+		"path": "/opt/soajs/node_modules/soajs.petstore.order/lib/models/",
 		"name": "mongo"
 	},
 	"serviceName": "orders",
