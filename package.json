@@ -1,0 +1,24 @@
+{
+  "name": "orders",
+  "description": "",
+  "version": "1.0.0",
+  "author": {
+    "name": "",
+    "email": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "lodash": "4.17.4",
+    "soajs.composer": "*"
+  }
+}

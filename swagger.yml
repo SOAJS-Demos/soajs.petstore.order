@@ -1,0 +1,241 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: Store Orders
+host: localhost
+basePath: /orders
+schemes:
+  - http
+paths:
+  /orders:
+    get:
+      tags:
+        - user orders
+      summary: See my Orders
+      parameters:
+        - $ref: "#/parameters/userId"
+      responses:
+        200:
+          description: success
+        406:
+          description: Invalid User provided
+        600:
+          description: error connecting to database
+  /admin/orders:
+    get:
+      tags:
+        - orders
+      summary: Manage all Orders
+      parameters:
+        - in: query
+          name: limit
+          type: integer
+          required: false
+          default: 100
+        - in: query
+          name: start
+          type: integer
+          required: false
+          default: 0
+        - $ref: "#/parameters/userId"
+      responses:
+        200:
+          description: success
+        400:
+          description: No orders found
+        600:
+          description: error connecting to database
+  /order/{id}:
+    delete:
+      tags:
+        - order
+      summary: Reject Order
+      parameters:
+        - in: query
+          name: petId
+          required: true
+          type: string
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: success
+        403:
+          description: Error restoring the database quantity
+        600:
+          description: error connecting to database
+    post:
+      tags:
+        - order
+      summary: confirm order
+      parameters:
+        - $ref: "#/parameters/id"
+        - in: body
+          name: pickupDate
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: success
+        401:
+          description: wrong id
+        600:
+          description: error connecting to database
+  /cart:
+    get:
+      tags:
+        - cart
+      summary: Get My Cart
+      parameters:
+        - $ref: "#/parameters/userId"
+      responses:
+        200:
+          description: success
+        401:
+          description: wrong id
+        600:
+          description: error connecting to database
+    post:
+      tags:
+        - cart
+      summary: Add Item to Cart
+      parameters:
+        - $ref: "#/parameters/userId"
+        - in: query
+          name: petId
+          required: true
+          type: string
+        - in: body
+          name: pet
+          description: Pet object that needs to be updated in the store
+          required: true
+          schema:
+            $ref: "#/definitions/pet"
+      responses:
+        200:
+          description: success
+        402:
+          description: Error while adding the pet to the cart
+        404:
+          description: wrong inputs
+        600:
+          description: error connecting to database
+  /cart/{id}:
+    delete:
+      tags:
+        - cart
+      summary: Remove Item from Cart
+      parameters:
+        - $ref: "#/parameters/userId"
+        - $ref: "#/parameters/id"
+      responses:
+        200:
+          description: success
+        401:
+          description: wrong id
+        600:
+          description: error connecting to database
+  /cart/checkout/{id}:
+    post:
+      tags:
+        - cart
+      summary: Checkout Cart
+      parameters:
+        - $ref: "#/parameters/id"
+        - $ref: "#/parameters/userId"
+        - in: query
+          name: petId
+          required: true
+          type: string
+        - in: query
+          name: quantity
+          required: true
+          type: integer
+        - in: body
+          name: infos
+          required: true
+          schema:
+            $ref: "#/definitions/info"
+      responses:
+        200:
+          description: success
+        404:
+          description: wrong inputs
+        600:
+          description: error connecting to database
+  /mergeCart:
+    get:
+      tags:
+        - cart
+      summary: Merge Anonymous Cart
+      parameters:
+        - $ref: "#/parameters/userId"
+      responses:
+        200:
+          description: success
+        600:
+          description: error connecting to database
+parameters:
+  userId:
+    in: query
+    name: userId
+    description: User Id
+    required: true
+    type: string
+  id:
+    in: path
+    name: id
+    description: Pet mongo id
+    required: true
+    type: string
+definitions:
+  pet:
+    type: object
+    required:
+      - breed
+      - name
+      - age
+      - gender
+      - photoUrls
+      - quantity
+      - price
+    properties:
+      breed:
+        type: string
+      name:
+        type: string
+        example: doggie
+      age:
+        type: string
+      gender:
+        type: string
+      color:
+        type: string
+      quantity:
+        type: integer
+      price:
+        type: string
+      photoUrls:
+        type: string
+      description:
+        type: string
+      status:
+        type: string
+        default: pending
+  info:
+    type: object
+    required:
+      - firstName
+      - lastName
+      - email
+      - phone
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+        format: email
+      phone:
+        type: string
