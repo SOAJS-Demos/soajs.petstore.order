@@ -31,6 +31,8 @@ module.exports = {
 	"requestTimeout": 30,
 	"requestTimeoutRenewal": 5,
 	"extKeyRequired": true,
+	"urac": true,
+	"urac_Profile": true,
 	"injection": true,
 	"oauth": true,
 	"session": true,
