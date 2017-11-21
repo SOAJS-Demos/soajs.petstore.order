@@ -19,6 +19,6 @@
   "devDependencies": {},
   "dependencies": {
     "lodash": "4.17.4",
-    "soajs.composer": "*"
+    "soajs.composer": "2.0.0"
   }
 }
